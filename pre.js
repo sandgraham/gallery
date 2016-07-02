@@ -1,5 +1,5 @@
 GMG = {};
 
 GMG.imgLoaded = function (imgNode) {
-	imgNode.classList.add('node_img--loaded');
+	imgNode.classList.add('thumbnail_img-loaded');
 }
