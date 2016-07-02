@@ -1,0 +1,30 @@
+body {
+	background-color: #eee;
+	margin: 0;
+	padding: 1em;
+}
+
+.node {
+	float: left;
+	position: relative;
+	width: calc(50vw - 1.5em);
+	height: calc(50vw - 1.5em);
+	overflow: hidden;
+	margin-bottom: 1em;
+	background-color: #ddd;
+}
+
+.node:nth-child(2n-1) {
+	margin-right: 1em;
+}
+
+.node_img {
+	position: absolute;
+	width: 100%;
+	opacity: 0;
+	transition: .3s ease-in-out;
+}
+
+.node_img--loaded {
+	opacity: 1;
+}
