@@ -17,8 +17,10 @@ body {
 .thumbnail {
 	background-color: #fff;
 	
-	flex-basis: calc(50% - .25rem);
+	width: calc(50vw - 1.25rem);
 	height: calc((50vw - 1.25rem) * .75);
 
 	margin-bottom: .5rem;
+
+	object-fit: cover;
 }
