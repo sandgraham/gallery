@@ -1,0 +1,77 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		margin: 0;
+	}
+	.gallery {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		overflow: hidden;
+		background: #000;
+	}
+	.img-wrap {
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+	}
+	.img-wrap > img {
+		object-fit: contain;
+		height: 100%;
+		width: 100%;
+	}
+	.header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		padding: 20px;
+		z-index: 2;
+		background: #fafafa;
+		text-align: center;
+		border-bottom: solid 1px #ddd;
+	}
+	.footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		padding: 30px;
+		z-index: 2;
+		background: #fafafa;
+		border-top: solid 1px #ddd;
+	}
+</style>
+
+<div class="header">
+	Line Drawings
+</div>
+<div class="gallery">
+	<div class="img-wrap">
+		<img src="../images/batman1.jpg" alt="">
+	</div>
+	<div class="img-wrap">
+		<img src="../images/batman2.jpg" alt="">
+	</div>
+	<div class="img-wrap">
+		<img src="../images/batman3.jpg" alt="">
+	</div>
+	<div class="img-wrap">
+		<img src="../images/ocean.jpg" alt="">
+	</div>
+</div>
+<div class="footer"></div>
+
+<script src="../lib/dragend.min.js"></script>
+<script>
+	var dragend_options = {
+		pageClass: 'img-wrap',
+		direction: 'horizontal'
+	}
+	var draend = new Dragend(document.querySelector('.gallery'), dragend_options);
+</script>

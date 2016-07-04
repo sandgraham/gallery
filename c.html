@@ -1,0 +1,95 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+	body {
+		background: #eee;
+		margin: 0;
+	}
+	.grid {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-content: space-between;
+		padding: 1rem;
+	}
+	.gridNode {
+		width: calc(50vw - 1.25rem);
+		height: calc((50vw - 1.25rem) * .7777);
+		margin-bottom: .5rem;
+		background-color: #ccc;
+		transition: all .3s ease-in-out;
+	}
+	.gridNode--detail {
+		width: 100%;
+		height: 343px;
+	}
+	.img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		box-shadow: 0 2px 2px rgba(0,0,0,.1);
+		border-radius: 2px;
+	}
+</style>
+
+<script>
+	var IMG_COUNT = 4;
+
+	var imgs = [];
+	function Image (imgElem) {
+		this.elem = imgElem;
+		this.ratio = imgElem.naturalWidth / imgElem.naturalHeight;
+		this.orientation = orientation(this.ratio);
+	}
+	function orientation (ratio) {
+		if (ratio > 1) {
+			return 'landscape';
+		} else
+		if (ratio < 1) {
+			return 'portrait';
+		} else {
+			return 'square';
+		}
+	}
+	function registerImg (imgElem) {
+		var newImg = new Image(imgElem);
+		imgs.push(newImg);
+
+		// when all images loaded
+		// this would normally come from the server
+		if (imgs.length == IMG_COUNT) {
+			start();
+		}
+	}
+</script>
+
+<div class="grid">
+	<div class="gridNode">
+		<img class="img" src="images/batman2.jpg" onload="registerImg(this)">
+	</div>
+	<div class="gridNode">
+		<img class="img" src="images/batman3.jpg" onload="registerImg(this)">
+	</div>
+	<div class="gridNode">
+		<img class="img" src="images/tess.jpg" onload="registerImg(this)">
+	</div>
+	<div class="gridNode">
+		<img class="img" src="images/spacejungle.jpg" onload="registerImg(this)">
+	</div>
+</div>
+
+<script src="lib/jquery.min.js"></script>
+<script src="lib/underscore.min.js"></script>
+<script>
+	b_width = document.body.clientWidth;
+	b_height = document.body.clientHeight;
+
+	function start() {
+		// add click event to images
+		_.each(imgs, function (img) {
+			$(img.elem).click(function(){
+				$(img.elem).parent().toggleClass('gridNode--detail');
+			})
+		});
+	}
+</script>

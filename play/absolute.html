@@ -1,0 +1,55 @@
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		margin: 0;
+		background: #eee;
+	}
+	.container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		width: calc(50vw - 1rem);
+		height: calc((50vw - 1rem) * 0.75);
+
+		transition: all .4s ease-in-out;
+	}
+	.container.detail {
+		position: absolute;
+		width: 100vw;
+		height: 100vh;
+	}
+	img {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
+
+		transition: all .4s ease-in-out;
+	}
+	.detail img {
+		/*This needs to be calculated.*/
+		/*batman1.jpg*/
+		height: 1447.5px;
+	}
+</style>
+
+<div class="container">
+	<img src="../images/batman1.jpg" />
+</div>
+
+<script>
+	var img = document.querySelector('img');
+	var container = document.querySelector('.container');
+
+
+
+	img.addEventListener('click', function() {
+		if (container.classList.contains('detail')) {
+			container.classList.remove('detail');
+		} else {
+			container.classList.add('detail');
+		}
+	});
+</script>

@@ -1,0 +1,59 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+body {
+	margin: 0;
+}
+.gallery {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+
+	overflow: hidden;
+
+	background: #333;
+}
+.wall {
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+	width: 100%;
+}
+.animate .wall {
+	transition: all .3s ease-in-out;
+}
+.art {
+	max-height: 100%;
+	max-width: 100%;
+}
+</style>
+
+<div class="gallery">
+	<div class="wall">
+		<img src="images/batman2.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/batman1.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/batman3.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/ocean.jpg" class="art">
+	</div>
+</div>
+
+<script src="lib/hammer.min.js"></script>
+<script src="lib/hammer.carousel.js"></script>
+<script>
+	var wall = document.querySelector('.wall');
+	var hammer = new Hammer(wall);
+
+	var gallery = new HammerCarousel(document.querySelector(".gallery"), Hammer.DIRECTION_HORIZONTAL);
+</script>

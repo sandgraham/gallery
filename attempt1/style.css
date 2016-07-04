@@ -1,0 +1,41 @@
+.gallery {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	background: #000;
+}
+
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+
+	transition: transform .35s ease-in-out;
+	-moz-transition: -moz-transform .35s ease-in-out;
+	-webkit-transition: -webkit-transform .35s ease-in-out;
+}
+
+img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.animate {
+	transition: transform .25s ease-in-out;
+	-moz-transition: -moz-transform .25s ease-in-out;
+	-webkit-transition: -webkit-transform .25s ease-in-out;
+}

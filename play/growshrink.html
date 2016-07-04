@@ -1,0 +1,85 @@
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		margin: 0;
+		background: #eee;
+	}
+	.view {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between; 
+
+		padding: 1rem;
+	}
+	.container {
+		width: calc(50vw - 1.25rem);
+		height: calc((50vw - 1.25rem) * 0.75);
+
+		margin-bottom: .5rem;
+	}
+	.img-wrap {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 100%;
+		width: 100%;
+
+		overflow: hidden;
+	}
+	.img-wrap.detail {
+		position: absolute;
+		top: 0; left: 0;
+
+		width: 100vw;
+		height: 100vh;
+		
+		background: rgba(0,0,0,.9);
+		transition: all .4s ease-in-out;
+	}
+	img {
+		object-fit: contain;
+		width: 200%;
+		height: 200%;
+
+		transition: all .4s ease-in-out;
+	}
+	.detail img {
+		height: auto;
+		width: auto;
+	}
+</style>
+
+<div class="view">
+	<div class="container">
+		<div class="img-wrap">
+			<img src="../images/batman1.jpg" />
+		</div>
+	</div>
+	<div class="container">
+		<div class="img-wrap">
+			<img src="../images/batman2.jpg" />
+		</div>
+	</div>
+	<div class="container">
+		<div class="img-wrap">
+			<img src="../images/batman3.jpg" />
+		</div>
+	</div>
+</div>
+
+<script>
+	var imgs = document.querySelectorAll('img');
+
+	for (var i = 0; i < imgs.length; i++) {
+		imgs[i].addEventListener('click', function(ev) {
+			if (ev.target.parentNode.classList.contains('detail')) {
+				ev.target.parentNode.classList.remove('detail');
+			} else {
+				ev.target.parentNode.classList.add('detail');
+			}
+		});
+	}
+</script>

@@ -1,0 +1,106 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+body {
+	margin: 0;
+	font-family: roboto;
+}
+.gallery {
+	position: absolute;
+	left: 0; right: 0;
+	top: 0; bottom: 0;
+
+	overflow: hidden;
+
+	background: #000;
+}
+.wall {
+	position: absolute;
+	left: 0; right: 0;
+	top: 0; bottom: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+	width: 100%;
+}
+.animate .wall {
+	transition: all .3s ease-in-out;
+}
+.art {
+	max-height: 100%;
+	max-width: 100%;
+}
+.header,
+.footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	padding: .75rem;
+	color: rgba(255,255,255,.9);
+	background: rgba(255,255,255,.25);
+}
+.header {
+	top: 0;
+}
+.footer {
+	bottom: 0;
+
+	display: flex;
+	justify-content: space-around;
+}
+.close {
+	float: right;
+}
+</style>
+
+<div class="header">
+	<span>Line Drawings</span>
+	<span class="close">X</span>
+</div>
+
+<div class="gallery">
+	<div class="wall">
+		<img src="images/batman2.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/batman1.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/batman3.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/alien.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/beatdown.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/birdwatcher.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/spacejungle.jpg" class="art">
+	</div>
+	<div class="wall">
+		<img src="images/ocean.jpg" class="art">
+	</div>
+</div>
+
+<div class="footer">
+	<span>+1</span>
+	<span>C</span>
+	<span>+</span>
+	<span>-></span>
+</div>
+
+<script src="lib/hammer.min.js"></script>
+<script src="lib/hammer.carousel.js"></script>
+<script>
+	var wall = document.querySelector('.wall');
+	var hammer = new Hammer(wall);
+
+	var gallery = new HammerCarousel(document.querySelector(".gallery"), Hammer.DIRECTION_HORIZONTAL);
+</script>
