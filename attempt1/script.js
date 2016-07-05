@@ -13,8 +13,6 @@
     if (i > 0) translate += ' scale(.9)';
     transform(page, translate);
 
-    page.classList.add('animate');
-
     addPageGestures(page);
   }
 
@@ -25,10 +23,18 @@
     return first ? document.querySelector(selector) : document.querySelectorAll(selector);
   };
 
+  Math.sign = Math.sign || function(x) {
+    x = +x; // convert to a number
+    if (x === 0 || isNaN(x)) {
+      return x;
+    }
+    return x > 0 ? 1 : -1;
+  }
+
   function transform (elem, trans) {
     elem.style.transform = trans;
-    elem.style.mozTransform = trans;
-    elem.style.webkitTransform = trans;
+    elem.style.mozTransform = '-moz-' + trans;
+    elem.style.webkitTransform = '-webkit-' + trans;
   };
 
   function addPageGestures (page) {
@@ -44,8 +50,6 @@
 
   function panPage(page, ev) {
     var translate;
-
-    console.log(ev.deltaX)
 
     // if pan ending, turn page or reset to base position
     if (ev.type == 'panend' || ev.type == 'pancancel') {
@@ -84,6 +88,7 @@
       page.currentX = page.currentX + shift;
 
       translate = 'translate3d(' + page.currentX + 'px,0,0)';
+      if (i !== currentIndex) translate += ' scale(.9)';
       transform(page, translate);
     }
   }
