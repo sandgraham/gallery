@@ -67,8 +67,7 @@
   }
 
   function shiftOkay(dir) {
-    return currentIndex == 0 && dir === Hammer.DIRECTION_LEFT ||
-      currentIndex == pages.length - 1 && dir == Hammer.DIRECTION_RIGHT;
+    return !(currentIndex == 0 && dir === Hammer.DIRECTION_RIGHT || currentIndex == pages.length - 1 && dir == Hammer.DIRECTION_LEFT);
   }
 
   function shiftPages (delta) { 
