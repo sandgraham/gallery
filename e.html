@@ -1,0 +1,92 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+body {
+	font-family: roboto, helvetica neue, sans-serif;
+}
+.header,
+.footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 1;
+
+	padding: 10px;
+
+	background-color: rgba(255,255,255,.75);
+	color: rgba(0,0,0,.9);
+}
+.header {
+	top: 0;
+
+	font-weight: bold;
+	text-transform: capitalize;
+	text-align: center;
+}
+.footer {
+	bottom: 0;
+}
+
+.gallery {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	overflow: hidden;
+
+	background: #000;
+}
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+}
+img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.animate .page {
+	transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+	-moz-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+	-webkit-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+</style>
+
+<div class="header">
+	<span class="header_title">image title here</span>
+</div>
+<div class="gallery">
+	<div class="page" data-title="something's different...">
+		<img src="images/batman2.jpg">
+	</div>
+	<div class="page" data-title="unfinished batman">
+		<img src="images/batman1.jpg">
+	</div>
+	<div class="page" data-title="vampire batman">
+		<img src="images/batman3.jpg">
+	</div>
+	<div class="page" data-title="the open sea">
+		<img src="images/ocean.jpg">
+	</div>
+</div>
+<div class="footer">
+	<span>actions</span>
+</div>
+
+<script src="lib/hammer.min.js"></script>
+<script src="lib/carousel.js"></script>
+<script>
+	var onShowNewPage = function (page) {
+		document.querySelector('.header_title').innerText = page.getAttribute('data-title');
+	};
+
+	var gallery = new Carousel(document.querySelector('.gallery'), onShowNewPage);
+</script>
