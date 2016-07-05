@@ -3,7 +3,7 @@
 .svgDefs {
 	display: none;
 }
-.icon action {
+.icon {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -14,6 +14,14 @@
 body {
 	font-family: roboto, helvetica neue, sans-serif;
 }
+.galleryView {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
 .header,
 .footer {
 	position: absolute;
@@ -21,31 +29,49 @@ body {
 	right: 0;
 	z-index: 1;
 
-	padding: 10px;
-
 	font-size: 1.2em;
 
 	color: rgba(0,0,0,.9);
-	background-color: rgba(255,255,255,.75);
-}
-.action {
-	height: 1.5em;
-	width: 1.5em;
+	background-color: rgba(255,255,255,.6);
+
+	transition: transform .3s ease-out;
 }
 .header {
 	top: 0;
 
-	font-weight: bold;
+	padding: 15px;
+
 	text-transform: capitalize;
 	text-align: center;
 }
+.hideDetails .header {
+	transform: translate3d(0,-100%,0);
+	transition: transform .25s ease-in;
+}
 .footer {
 	bottom: 0;
+
+	padding: 10px;
 
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-around;
 	align-items: center;
+}
+.hideDetails .footer {
+	transform: translate3d(0,100%,0);
+	transition: transform .25s ease-in;
+}
+.action {
+	height: 1.5em;
+	width: 1.5em;
+}
+.icon-clear {
+	position: absolute;
+	right: 15px;
+	height: 1em;
+	width: 1em;
+	top: 17px;
 }
 .gallery {
 	position: absolute;
@@ -95,57 +121,53 @@ img {
 		<symbol id="icon-plus1" viewBox="0 0 32 32">
 			<path class="path1" d="M13.333 10.667h-2.667v5.333h-5.333v2.667h5.333v5.333h2.667v-5.333h5.333v-2.667h-5.333zM19.333 8.107v2.427l3.333-0.667v14.133h2.667v-17.333z"></path>
 		</symbol>
+		<symbol id="icon-clear" viewBox="0 0 32 32">
+			<path class="path1" d="M25.333 8.547l-1.88-1.88-7.453 7.453-7.453-7.453-1.88 1.88 7.453 7.453-7.453 7.453 1.88 1.88 7.453-7.453 7.453 7.453 1.88-1.88-7.453-7.453z"></path>
+		</symbol>
 	</defs>
 </svg>
 
-<div class="header">
-	<span class="header_title">image title here</span>
-</div>
+<div class="galleryView">
+	<div class="header">
+		<span class="header_title"></span>
+		<svg class="icon icon-clear">
+	  		<use xlink:href="#icon-clear"></use>
+		</svg>
+	</div>
 
-<div class="gallery">
-	<div class="page" data-title="something's different...">
-		<img src="images/batman2.jpg">
+	<div class="gallery">
+		<div class="page" data-title="something's different...">
+			<img src="images/batman2.jpg">
+		</div>
+		<div class="page" data-title="nobody man">
+			<img src="images/batman1.jpg">
+		</div>
+		<div class="page" data-title="the vampire man">
+			<img src="images/batman3.jpg">
+		</div>
+		<div class="page" data-title="the open sea">
+			<img src="images/ocean.jpg">
+		</div>
 	</div>
-	<div class="page" data-title="nobody man">
-		<img src="images/batman1.jpg">
-	</div>
-	<div class="page" data-title="the vampire man">
-		<img src="images/batman3.jpg">
-	</div>
-	<div class="page" data-title="the open sea">
-		<img src="images/ocean.jpg">
-	</div>
-</div>
 
-<div class="footer">
-  	<div class="footer_action">
+	<div class="footer">
     	<svg class="icon action icon-plus1">
       		<use xlink:href="#icon-plus1"></use>
     	</svg>
-  	</div>
-  	<div class="footer_action">
     	<svg class="icon action icon-chat">
       		<use xlink:href="#icon-chat"></use>
     	</svg>
-  	</div>
-  	<div class="footer_action">
     	<svg class="icon action icon-add">
       		<use xlink:href="#icon-add"></use>
     	</svg>
-  	</div>
-  	<div class="footer_action">
     	<svg class="icon action icon-forward">
     		<use xlink:href="#icon-forward"></use>
   		</svg>
-  	</div>
+	</div>
 </div>
 
 <script src="lib/hammer.min.js"></script>
 <script src="lib/carousel.js"></script>
 <script>
-	var onShowNewPage = function (page) {
-		document.querySelector('.header_title').innerText = page.getAttribute('data-title');
-	};
-
-	var gallery = new Carousel(document.querySelector('.gallery'), onShowNewPage);
+	var gallery = new Carousel(document.querySelector('.gallery'));
 </script>
