@@ -45,11 +45,13 @@
   function panPage(page, ev) {
     var translate;
 
+    console.log(ev.deltaX)
+
     // if pan ending, turn page or reset to base position
     if (ev.type == 'panend' || ev.type == 'pancancel') {
       page.classList.add('animate');
 
-      if (shiftOkay(ev.direction) && (Math.abs(ev.deltaX) > page.clientWidth * PAGE_TURN_THRESHOLD)) {
+      if (shiftOkay(ev.deltaX) && (Math.abs(ev.deltaX) > page.clientWidth * PAGE_TURN_THRESHOLD)) {
         // turn page if not end and pan is past threshold
         shiftPages(ev.deltaX);
       } else {
@@ -66,11 +68,11 @@
     }
   }
 
-  function shiftOkay(dir) {
-    return !(currentIndex == 0 && dir === Hammer.DIRECTION_RIGHT || currentIndex == pages.length - 1 && dir == Hammer.DIRECTION_LEFT);
+  function shiftOkay(delta) {
+    return !(currentIndex == 0 && delta > 0 || currentIndex == pages.length - 1 && delta < 0);
   }
 
-  function shiftPages (delta) { 
+  function shiftPages (delta) {
     currentIndex -= Math.sign(delta);
 
     for (var i = 0; i < pages.length; i++) {
