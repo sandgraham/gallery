@@ -1,0 +1,61 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+.gallery {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	background: #000;
+}
+
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+}
+
+img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.animate .page {
+	transition: .4s ease-in-out;
+	-moz-transition: .4s ease-in-out;
+	-webkit-transition: .4s ease-in-out;
+}
+</style>
+
+<div class="gallery">
+	<div class="page">
+		<img src="images/batman2.jpg">
+	</div>
+	<div class="page">
+		<img src="images/batman1.jpg">
+	</div>
+	<div class="page">
+		<img src="images/batman3.jpg">
+	</div>
+	<div class="page">
+		<img src="images/ocean.jpg">
+	</div>
+</div>
+
+<script src="lib/hammer.min.js"></script>
+<script src="lib/carousel.js"></script>
+<script>
+	var gallery = new Carousel(document.querySelector('.gallery'));
+</script>
