@@ -97,10 +97,10 @@ body {
 </div>
 
 <script src="lib/hammer.min.js"></script>
-<script src="lib/hammer.carousel.js"></script>
+<script src="lib/carousel.js"></script>
 <script>
 	var wall = document.querySelector('.wall');
 	var hammer = new Hammer(wall);
 
-	var gallery = new HammerCarousel(document.querySelector(".gallery"), Hammer.DIRECTION_HORIZONTAL);
+	var gallery = new Carousel(document.querySelector(".gallery"));
 </script>
