@@ -1,7 +1,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <style>
 body {
+	margin: 0;
 	font-family: roboto, helvetica neue, sans-serif;
+	background-color: #eee;
 }
 .svgDefs {
 	display: none;
@@ -105,6 +107,24 @@ body {
 	-moz-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 	-webkit-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
+.galleryView.hidden {
+	display: none;
+	transform: translate3d(100%, 0, 0);
+}
+.gridView {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	padding: 1rem;
+}
+.node {
+	width: calc(50vw - 1.25rem);
+	height: calc((50vw - 1.25rem) * .75);
+	margin-bottom: .5rem;
+}
+.node .art {
+	object-fit: cover;
+}
 </style>
 
 <svg class="svgDefs">
@@ -127,7 +147,22 @@ body {
 	</defs>
 </svg>
 
-<div class="galleryView">
+<div class="gridView">
+	<div class="node" data-title="something's different...">
+		<img class="art" src="images/batman2.jpg">
+	</div>
+	<div class="node" data-title="nobody man">
+		<img class="art" src="images/batman1.jpg">
+	</div>
+	<div class="node" data-title="the vampire man">
+		<img class="art" src="images/batman3.jpg">
+	</div>
+	<div class="node" data-title="the open sea">
+		<img class="art" src="images/ocean.jpg">
+	</div>
+</div>
+
+<div class="galleryView hidden">
 	<div class="header">
 		<span class="header_title"></span>
 		<svg class="icon icon-clear">
@@ -169,5 +204,17 @@ body {
 <script src="lib/hammer.min.js"></script>
 <script src="lib/carousel.js"></script>
 <script>
-	var gallery = new Carousel(document.querySelector('.gallery'));
+	var nodes = document.querySelectorAll('.node');
+	var gallery = document.querySelector('.galleryView');
+
+	for (var i = 0; i < nodes.length; i++) {
+		var hammer = new Hammer(nodes[i]);
+		hammer.on('tap', function (ev){
+			openGallery(ev.target);
+		});
+	}
+	function openGallery (elem) {
+		var carousel = new Carousel(gallery);
+		gallery.classList.remove('hidden')
+	}
 </script>
