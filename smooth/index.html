@@ -1,0 +1,148 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+	body {
+		background: #eee;
+		margin: 0;
+	}
+	.body-noScroll {
+		overflow: hidden;
+		/*position: fixed;*/
+		/*height: 100vh;*/
+		/*width: 100vw;*/
+	}
+	.grid {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		padding: 1rem;
+	}
+	.node {
+		width: calc(50vw - 1.25rem);
+		height: calc(50vw - 1.25rem);
+		margin-bottom: .5rem;
+		background: #eee;
+	}
+	.art {
+		position: absolute;
+		width: calc(50vw - 1.25rem);
+		height: calc(50vw - 1.25rem);
+		object-fit: cover;
+		transition: .3s ease-in-out;
+		z-index: 1;
+	}
+	.art-fullscreen {
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+		/*object-fit: contain;*/
+	}
+	.overlay {
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #000;
+		transition: .3s ease-in-out;
+		opacity: 0;
+		z-index: 2;
+	}
+	.overlay-show {
+		opacity: 1;
+	}
+</style>
+
+<div class="grid">
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/birdwatcher.jpg" onclick="toggle(this)">
+	</div>
+	<div class="node">
+		<div class="overlay"></div>
+		<img class="art" src="../images/alien.jpg" onclick="toggle(this)">
+	</div>
+</div>
+
+<script>
+	var artwork = document.querySelectorAll('.art');
+	var overlay = document.querySelector('.overlay');
+	function toggle(art) {
+		if (document.body.classList.contains('body-noScroll')) {
+			minimize(art);
+		} else {
+			maximize(art);
+		}
+	}
+	function maximize(art) {
+		overlay.classList.add('overlay-show');
+		document.body.classList.add('body-noScroll');
+
+		art.oTop = art.offsetTop;
+		art.oLeft = art.offsetLeft;
+
+		art.style.top = art.offsetTop; console.log(art.offsetTop)
+		art.style.left = art.offsetLeft; console.log(art.offsetLeft)
+
+		art.classList.add('art-fullscreen');
+
+		art.style['object-fit'] = 'contain';
+		art.style.top = document.body.scrollTop;
+		art.style.left = 0;
+	}
+	function minimize(art) {
+		overlay.classList.remove('overlay-show');
+		document.body.classList.remove('body-noScroll');
+
+		art.style.top = art.oTop;
+		art.style.left = art.oLeft;
+
+		art.classList.remove('art-fullscreen');
+
+		art.addEventListener('transitionend', function(){
+			art.style['object-fit'] = 'cover';
+			art.removeEventListener('transitionend', arguments.callee);
+		});
+	}
+</script>

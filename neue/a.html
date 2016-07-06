@@ -1,0 +1,67 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+	body {
+		margin: 0;
+		background-color: #eee;
+		transition: .2s ease-in-out;
+	}
+	.body-detail {
+		background: #000;
+	}
+	.grid {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		padding: 16px;
+	}
+	.node {
+		width: calc(50vw - 20px);
+		height: calc(50vw - 20px);
+		object-fit: cover;
+
+		margin-bottom: 8px;
+
+		border-radius: 2px;
+		box-shadow: 0 2px 6px -2px rgba(0,0,0,.4);
+	}
+	.node-open {
+		width: 100%;
+		height: 100%;
+		max-height: calc(100% - 32px);
+		object-fit: contain;
+	}
+</style>
+
+<div class="grid">
+	<img class="node" src="../images/batman1.jpg">
+	<img class="node" src="../images/batman2.jpg">
+	<img class="node" src="../images/batman3.jpg">
+	<img class="node" src="../images/tess.jpg">
+	<img class="node" src="../images/ocean.jpg">
+	<img class="node" src="../images/spacejungle.jpg">
+	<img class="node" src="../images/birdwatcher.jpg">
+	<img class="node" src="../images/alien.jpg">
+	<img class="node" src="../images/beatdown.jpg">
+</div>
+
+<script src="../lib/jquery.min.js"></script>
+<script src="../lib/hammer.min.js"></script>
+<script>
+	var docH = document.body.clientHeight
+	var docW = document.body.clientWidth
+
+	$('.node').each(function(){
+		var hammer = new Hammer(this)
+		hammer.on('tap', onTap)
+	})
+
+	function onTap (ev) {
+		$('body').toggleClass('body-detail');
+		$('.node').each(function(){
+			$(this).toggleClass('node-open');
+
+		})
+		document.body.scrollTop = ev.target.offsetTop - 20;
+	}
+</script>

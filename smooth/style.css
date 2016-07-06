@@ -1,0 +1,159 @@
+body {
+	margin: 0;
+	font-family: roboto, helvetica neue, sans-serif;
+}
+
+
+
+
+
+.gridView {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #eee;
+}
+.grid {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+
+	padding: 1rem;
+}
+.unit {
+	width: calc(50vw - 1.25rem);
+	height: calc(50vw - 1.25rem);
+
+	margin-bottom: .5rem;
+	transition: all .3s ease-in-out;
+}
+.unit img {
+	object-fit: cover;
+
+	transition: all .3s ease-in-out;
+}
+.unit-open {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 100vh;
+	width: 100vw;
+}
+.unit-open img {
+	object-fit: contain;
+}
+
+
+
+
+
+
+.galleryView {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	overflow: hidden;
+
+	display: none;
+}
+.svgDefs {
+	display: none;
+}
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+.header,
+.footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 1;
+
+	font-size: 1.2em;
+
+	color: rgba(0,0,0,.9);
+	background-color: rgba(255,255,255,.6);
+
+	transition: transform .3s ease-out;
+}
+.header {
+	top: 0;
+
+	padding: 15px;
+
+	text-transform: capitalize;
+	text-align: center;
+}
+.hideDetails .header {
+	transform: translate3d(0,-100%,0);
+	transition: transform .25s ease-in;
+}
+.footer {
+	bottom: 0;
+
+	padding: 10px;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+}
+.hideDetails .footer {
+	transform: translate3d(0,100%,0);
+	transition: transform .25s ease-in;
+}
+.action {
+	height: 1.5em;
+	width: 1.5em;
+}
+.icon-clear {
+	position: absolute;
+	right: 15px;
+	height: 1em;
+	width: 1em;
+	top: 17px;
+}
+.gallery {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	overflow: hidden;
+
+	background: #000;
+}
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+}
+img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+.animate .page {
+	transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+	-moz-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+	-webkit-transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
