@@ -52,7 +52,7 @@ body {
 	overflow: hidden;
 
 	background: pink;
-	-webkit-transition: transform .3s ease-in-out, background-color .3s ease-in-out;
+
 	transition: transform .3s ease-in-out, background-color .3s ease-in-out;
 }
 .frame-selected {
