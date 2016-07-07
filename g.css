@@ -56,17 +56,12 @@ body {
 
 	overflow: hidden;
 
-	background: pink;
-
-	transition: transform .3s ease-in-out, background-color .3s ease-in-out;
+	/*color: purple;*/
+	/*background: pink;*/
 }
 
 .frame-selected {
 	z-index: 1;
-}
-
-.frame-noAnimate {
-	transition: none;
 }
 
 .view-gallery .frame {
@@ -80,6 +75,10 @@ body {
 	height: 100%;
 
 	background: #000;
+}
+
+.animate-frames .frame {
+	transition: .3s ease-in-out;
 }
 
 
