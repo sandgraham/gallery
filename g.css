@@ -1,11 +1,13 @@
 * {
 	box-sizing: border-box;
 }
+
 body {
 	margin: 0;
 	font-family: roboto, helvetica neue, sans-serif;
 	background: #f8f8f8;
 }
+
 
 
 .view {
@@ -17,6 +19,7 @@ body {
 
 	transition: .3s ease-in-out;
 }
+
 .view-gallery {
 	position: absolute;
 	top: 0;
@@ -33,12 +36,14 @@ body {
 }
 
 
+
 .unit {
 	width: calc(50vw - 1.25rem);
 	height: calc(50vw - 1.25rem);
 	
 	margin-bottom: .5rem;
 }
+
 
 
 .frame {
@@ -55,12 +60,15 @@ body {
 
 	transition: transform .3s ease-in-out, background-color .3s ease-in-out;
 }
+
 .frame-selected {
 	z-index: 1;
 }
+
 .frame-noAnimate {
 	transition: none;
 }
+
 .view-gallery .frame {
 	position: absolute;
 	top: 0;
@@ -75,12 +83,19 @@ body {
 }
 
 
+/*
+	Note that there is a really cool animation if we wait a moment for the
+	other pictures to slide off first. Revisit later.
+*/
+
+
 .frame img {
 	width: calc(50vw - 1.25rem);
 	height: calc(50vw - 1.25rem);
 	object-fit: cover;
 	transition: .3s .1s ease-in-out;
 }
+
 .view-gallery img {
 	width: 100%;
 	height: 100%;
