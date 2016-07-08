@@ -25,6 +25,11 @@
             </symbol>
         </defs>
     </svg>
+    <script>
+        var revealImage = function (img) {
+            img.classList.remove('frame_img-loading');
+        }
+    </script>
     <!-- TODO: Rather than assuming a server side render, allow populating the view from JS. -->
     <div class="view view-animateFrames grid">
         <div class="grid_header">
@@ -32,47 +37,47 @@
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/batman1.jpg" alt="he has no body">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/batman1.jpg" alt="he has no body">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/batman2.jpg" alt="something is different">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/batman2.jpg" alt="something is different">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/batman3.jpg" alt="why is there no vampire batman?">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/batman3.jpg" alt="why is there no vampire batman?">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/tess.jpg" alt="sweet">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/tess.jpg" alt="sweet">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/ocean.jpg" alt="out there on the waves">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/ocean.jpg" alt="out there on the waves">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/spacejungle.jpg" alt="explorin' space">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/spacejungle.jpg" alt="explorin' space">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/birdwatcher.jpg" alt="i don't see any">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/birdwatcher.jpg" alt="i don't see any">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/beatdown.jpg" alt="rhythm and pain">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/beatdown.jpg" alt="rhythm and pain">
             </div>
         </div>
         <div class="grid_unit">
             <div class="frame">
-                <img class="frame_img" src="images/alien.jpg" alt="looks fine to me">
+                <img class="frame_img frame_img-loading" onload="revealImage(this)" src="images/alien.jpg" alt="looks fine to me">
             </div>
         </div>
     </div>
