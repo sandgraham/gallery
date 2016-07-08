@@ -6,7 +6,7 @@
 	var imgs = document.querySelectorAll('img');
 	var details = document.querySelector('.details');
 	var detailHeader = document.querySelector('.detail-header');
-	var title = document.querySelector('.title');
+	var title = document.querySelector('.detail_title');
 	var detailFooter = document.querySelector('.detail-footer');
 	var bodyWidth = document.body.clientWidth;
 	var frameWidth = bodyWidth + 100;
@@ -21,7 +21,7 @@
 	}
 
 	var initHeader = function () {
-		var headerCloseElem = document.querySelector('.js-headerClose');
+		var headerCloseElem = document.querySelector('.detail_close');
 		var headerCloseHammer = new Hammer.Manager(headerCloseElem);
 		headerCloseHammer.add(new Hammer.Tap());
 		headerCloseHammer.on('tap', onHeaderClose);
