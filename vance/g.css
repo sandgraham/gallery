@@ -1,0 +1,193 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: roboto, helvetica neue, sans-serif;
+	background: #f8f8f8;
+}
+
+
+
+.svgDefs {
+	display: none;
+}
+
+.icon {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	stroke-width: 0;
+	stroke: currentColor;
+	fill: currentColor;
+}
+
+
+
+.detail {
+	position: fixed;
+	z-index: 2;
+
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+
+	width: 100%;
+	padding: .5rem;
+
+	background: rgba(255,255,255,.9);
+
+	transition: .3s ease-in-out;
+}
+
+.detail-header {
+	top: 0;
+
+	justify-content: space-between;
+
+	border-bottom: solid 1px rgba(0,0,0,.2);
+
+	transform: translate3d(0,-100%,0);
+	-moz-transform: translate3d(0,-100%,0);
+	-webkit-transform: translate3d(0,-100%,0);
+}
+
+.js-headerClose {
+	position: absolute;
+	content: '';
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 20%;
+}
+
+.detail-footer {
+	bottom: 0;
+
+	justify-content: space-around;
+
+	border-top: solid 1px rgba(0,0,0,.2);
+
+	transform: translate3d(0,100%,0);
+	-moz-transform: translate3d(0,100%,0);
+	-webkit-transform: translate3d(0,100%,0);
+}
+
+.details-show .detail {
+	transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
+}
+
+
+
+.action-header {
+	font-size: 1.5rem;
+}
+
+.action-footer {
+	font-size: 1.75rem;
+}
+
+
+
+.gridHeader {
+	width: 100%;
+	padding-bottom: 1rem;
+
+	font-size: .8rem;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(0,0,0,.6);
+}
+
+
+.view {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+
+	padding: 1rem;
+
+	transition: .3s ease-in-out;
+}
+
+.view-gallery {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: #000;
+
+	overflow: hidden;
+}
+
+
+
+.unit {
+	width: calc(50vw - 1.25rem);
+	height: calc(50vw - 1.25rem);
+	
+	margin-bottom: .5rem;
+}
+
+
+
+.frame {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	overflow: hidden;
+}
+
+.frame-selected {
+	z-index: 1;
+}
+
+.view-gallery .frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+
+	background: #000;
+}
+
+.animate-frames .frame {
+	transition: .3s ease-in-out;
+}
+
+
+/*
+	Note that there is a really cool animation if we wait a moment for the
+	other pictures to slide off first. Revisit later.
+*/
+
+
+.frame img {
+	width: calc(50vw - 1.25rem);
+	height: calc(50vw - 1.25rem);
+	object-fit: cover;
+	transition: .3s .1s ease-in-out;
+}
+
+.view-gallery img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
