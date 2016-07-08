@@ -4,7 +4,10 @@
 
 body {
 	margin: 0;
+
+    font-size: 1em;
 	font-family: roboto, helvetica neue, sans-serif;
+	
 	background: #f8f8f8;
 }
 
@@ -18,6 +21,7 @@ body {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
+
 	stroke-width: 0;
 	stroke: currentColor;
 	fill: currentColor;
@@ -25,7 +29,7 @@ body {
 
 
 
-.detail {
+.detail_block {
 	position: fixed;
 	z-index: 2;
 
@@ -41,7 +45,7 @@ body {
 	transition: .3s ease-in-out;
 }
 
-.detail-header {
+.detail_header {
 	top: 0;
 
 	justify-content: space-between;
@@ -53,7 +57,8 @@ body {
 	-webkit-transform: translate3d(0,-100%,0);
 }
 
-.detail_close {
+/* Used to make it easier to tap cancel icon. */
+.detail_closeGallery {
 	position: absolute;
 	content: '';
 	right: 0;
@@ -63,7 +68,7 @@ body {
 	width: 20%;
 }
 
-.detail-footer {
+.detail_footer {
 	bottom: 0;
 
 	justify-content: space-around;
@@ -75,28 +80,43 @@ body {
 	-webkit-transform: translate3d(0,100%,0);
 }
 
-.details-show .detail {
+.detail-show .detail_block {
 	transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-webkit-transform: translate3d(0,0,0);
-}
-
-
-
-.action-header {
-	font-size: 1.5rem;
-}
-
-.action-footer {
-	font-size: 1.75rem;
 }
 
 .detail_title {
 	font-weight: 300;
 }
 
+.detail_headerAction {
+	font-size: 1.5rem;
+}
 
-.gridHeader {
+.detail_footerAction {
+	font-size: 1.75rem;
+}
+
+
+
+/*
+	Grid and Gallery are contexts for two different type of View.
+	They might be thought of as modifiers, but they really set up
+	their own rather divergent, overlapping patterns. Using Blocks for now.
+*/
+
+.grid {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+
+	padding: 1rem;
+
+	transition: .3s ease-in-out;
+}
+
+.grid_header {
 	width: 100%;
 	padding-bottom: .5rem;
 	margin-bottom: 1rem;
@@ -109,18 +129,15 @@ body {
 	color: rgba(0,0,0,.6);
 }
 
-
-.view {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
-
-	padding: 1rem;
-
-	transition: .3s ease-in-out;
+.grid_unit {
+	width: calc(50vw - 1.25rem);
+	height: calc(50vw - 1.25rem);
+	margin-bottom: .5rem;
 }
 
-.view-gallery {
+
+
+.gallery {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -133,15 +150,6 @@ body {
 	background-color: #000;
 
 	overflow: hidden;
-}
-
-
-
-.unit {
-	width: calc(50vw - 1.25rem);
-	height: calc(50vw - 1.25rem);
-	
-	margin-bottom: .5rem;
 }
 
 
@@ -164,7 +172,7 @@ body {
 	z-index: 1;
 }
 
-.view-gallery .frame {
+.gallery .frame {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -177,18 +185,19 @@ body {
 	background: #000;
 }
 
-.animate-frames .frame {
+.view-animateFrames .frame {
 	transition: .3s ease-in-out;
 }
 
-
 /*
-	Note that there is a really cool animation if we wait a moment for the
-	other pictures to slide off first. Revisit later.
+	TODO: Add a delay before zoom in and out.	
+	There is a nice tile-sliding effect if we wait a moment for
+	the other frames to disperse before going full screen, which helps
+	set up the continuity of where the other images are in the new view,
+	implying left/right swipe.
 */
 
-
-.frame img {
+.frame_img {
 	width: calc(50vw - 1.25rem);
 	height: calc(50vw - 1.25rem);
 	object-fit: cover;
@@ -196,7 +205,7 @@ body {
 	transition: .3s .1s ease-in-out;
 }
 
-.view-gallery img {
+.gallery .frame_img {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;

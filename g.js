@@ -1,33 +1,34 @@
 (function(){
-	var PAN_LIMIT = 20;
 	var view = document.querySelector('.view');
-	var units = document.querySelectorAll('.unit');
+    var detail = document.querySelector('.detail');
+    var detailTitle = document.querySelector('.detail_title');
+
+	var units = document.querySelectorAll('.grid_unit');
 	var frames = document.querySelectorAll('.frame');
-	var imgs = document.querySelectorAll('img');
-	var details = document.querySelector('.details');
-	var detailHeader = document.querySelector('.detail-header');
-	var title = document.querySelector('.detail_title');
-	var detailFooter = document.querySelector('.detail-footer');
-	var bodyWidth = document.body.clientWidth;
-	var frameWidth = bodyWidth + 100;
-	var currentIndex = 0;
-	var initialFrame = frames[0];
-	var viewHammerManager;
-	var unitHammerManagers = [];
+
+	var PAN_LIMIT = 20;
+	var PAN_WIDTH = document.body.clientWidth + 100;
+
+    // TODO: Create Gallery and Grid objects to wrap all this loose behavior/data up.
+    var imageTitles = [];
+    var unitHammerManagers = [];
+    var viewHammerManager,
+        currentIndex,
+        initialFrame;
 
 	var init = function () {
 		initGrid();
 		initHeader();
+        getImageTitles();
 	}
 
 	var initHeader = function () {
-		var headerCloseElem = document.querySelector('.detail_close');
-		var headerCloseHammer = new Hammer.Manager(headerCloseElem);
-		headerCloseHammer.add(new Hammer.Tap());
-		headerCloseHammer.on('tap', onHeaderClose);
+		var closeGalleryElem = document.querySelector('.detail_closeGallery');
+		var closeGalleryHammer = new Hammer.Manager(closeGalleryElem);
+		closeGalleryHammer.add(new Hammer.Tap());
+		closeGalleryHammer.on('tap', closeGallery);
 	}
 
-	// create hammer tap managers for units or reenable them
 	var initGrid = function () {
 		if (unitHammerManagers.length) {
 			for (var i = 0; i < unitHammerManagers.length; i++) {
@@ -40,12 +41,11 @@
 		}
 	}
 
-	// create a hammer manager for the given unit, pass index as a favor
 	var createUnitHammerManager = function (unitElem, index) {
 		var unitHammerManager = new Hammer.Manager(unitElem);
 		unitHammerManager.add(new Hammer.Tap());
 		unitHammerManager.on('tap', function () {
-			if (view.classList.contains('view-grid')) {
+			if (!view.classList.contains('gallery')) {
 				openGalleryTo(index);
 			}
 		});
@@ -53,17 +53,17 @@
 		return unitHammerManager;
 	}
 
-	// close gallery from currentIndex
 	var closeGallery = function () {
-		details.classList.remove('details-show');
+		detail.classList.remove('detail-show');
 
 		// push closing frame to front
 		initialFrame.classList.remove('frame-selected');
 		frames[currentIndex].classList.add('frame-selected');
 
 		// transition to grid
-		view.classList.remove('view-gallery')
-		view.classList.add('view-grid')
+		view.classList.remove('gallery');
+
+        units[currentIndex].scrollIntoViewIfNeeded();
 
 		for (var i = 0; i < frames.length; i++) {
 			frames[i].style.transform = 'none';
@@ -80,15 +80,14 @@
 	var openGalleryTo = function (selectedIndex) {
 		initialFrame = frames[selectedIndex];
 
-		// give it a z-index to push image to front
+		// give it a z-index to push selected frame to front
 		initialFrame.classList.add('frame-selected');
 
 		// transition to gallery
-		view.classList.add('view-gallery')
-		view.classList.remove('view-grid')
+		view.classList.add('gallery')
 
 		moveGalleryTo(selectedIndex, 0, true);
-		details.classList.add('details-show');
+		detail.classList.add('detail-show');
 
 		// set up manager for panning or reenable it
 		if (viewHammerManager) {
@@ -102,31 +101,30 @@
 		   	viewHammerManager.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 }));
 		   	viewHammerManager.on('panstart panmove panend pancancel', onPanGallery);
 		   	viewHammerManager.add(new Hammer.Tap());
-	    	viewHammerManager.on('tap', onTapGallery);
+	    	viewHammerManager.on('tap', toggleDetail);
 		}
 	}
 
-	// move Gallery along x-axis
+	// Move frames along x-axis
 	var moveGalleryTo = function (showIndex, percent, animate) {
 		showIndex = Math.max(0, Math.min(showIndex, frames.length - 1));
 		percent = percent || 0;
 
 		if (animate) {
-			view.classList.add('animate-frames');
-
-			setTitle(showIndex);
+			view.classList.add('view-animateFrames');
+			detailTitle.textContent = imageTitles[showIndex];
 		} else {
-			view.classList.remove('animate-frames');
+			view.classList.remove('view-animateFrames');
 		}
 
 		var pos, translate;
 		for (var i = 0; i < frames.length; i++) {
-			pos = (frameWidth / 100) * (((i - showIndex) * 100) + percent);
+			pos = (PAN_WIDTH / 100) * (((i - showIndex) * 100) + percent);
 
 			translate = 'translate3d(' + pos + 'px, 0, 0)';
 
 			if (i !== showIndex) {
-				translate += ' scale(.9)'
+				translate += ' scale(.8)'
 			}
 
 			frames[i].style.transform = translate;
@@ -139,7 +137,7 @@
 
 	var onPanGallery = function (ev) {
 		var delta = ev.deltaX;
-		var percent = (100 / frameWidth) * delta;
+		var percent = (100 / PAN_WIDTH) * delta;
 		var animate = false;
 
 		if (ev.type == 'panend' || ev.type == 'pancancel') {
@@ -153,28 +151,22 @@
 	    moveGalleryTo(currentIndex, percent, animate);
 	}
 
-	// might add later
-	var onTapGallery = function (ev) {
-		toggleDetails();
-	}
-
-	// might add later
-	var onHeaderClose = function () {
-		closeGallery();
-	}
-
-	var toggleDetails = function () {
-		if (details.classList.contains('details-show')) {
-			details.classList.remove('details-show');
+	var toggleDetail = function () {
+		if (detail.classList.contains('detail-show')) {
+			detail.classList.remove('detail-show');
 		} else {
-			details.classList.add('details-show');
+			detail.classList.add('detail-show');
 		}
 	}
 
-	var setTitle = function (newTitleIndex) {
-		title.innerText = imgs[newTitleIndex].getAttribute('alt');
-	}
+    // Seems a bit circuitous
+    var getImageTitles = function () {
+        for (var i = 0; i < frames.length; i++) {
+            var title = frames[i].children[0].getAttribute('alt');
+            imageTitles.push(title);
+        }
+    }
 
-	// start page in grid view
+	// Start the page in Grid View.
 	init();
 })();

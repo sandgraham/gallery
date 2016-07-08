@@ -1,102 +1,106 @@
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="g.css">
-
-<svg class="svgDefs">
-	<defs>
-		<symbol id="icon-add" viewBox="0 0 32 32">
-		  	<path class="path1" d="M25.333 17.333h-8v8h-2.667v-8h-8v-2.667h8v-8h2.667v8h8v2.667z"></path>
-		</symbol>
-		<symbol id="icon-chat" viewBox="0 0 32 32">
-		 	<path class="path1" d="M26.667 2.667h-21.333c-1.467 0-2.653 1.2-2.653 2.667l-0.013 24 5.333-5.333h18.667c1.467 0 2.667-1.2 2.667-2.667v-16c0-1.467-1.2-2.667-2.667-2.667zM8 12h16v2.667h-16v-2.667zM18.667 18.667h-10.667v-2.667h10.667v2.667zM24 10.667h-16v-2.667h16v2.667z"></path>
-		</symbol>
-		<symbol id="icon-forward" viewBox="0 0 32 32">
-			<path class="path1" d="M18.667 12v-5.333l9.333 9.333-9.333 9.333v-5.467c-6.667 0-11.333 2.133-14.667 6.8 1.333-6.667 5.333-13.333 14.667-14.667z"></path>
-		</symbol>
-		<symbol id="icon-plus1" viewBox="0 0 32 32">
-			<path class="path1" d="M13.333 10.667h-2.667v5.333h-5.333v2.667h5.333v5.333h2.667v-5.333h5.333v-2.667h-5.333zM19.333 8.107v2.427l3.333-0.667v14.133h2.667v-17.333z"></path>
-		</symbol>
-		<symbol id="icon-clear" viewBox="0 0 32 32">
-			<path class="path1" d="M25.333 8.547l-1.88-1.88-7.453 7.453-7.453-7.453-1.88 1.88 7.453 7.453-7.453 7.453 1.88 1.88 7.453-7.453 7.453 7.453 1.88-1.88-7.453-7.453z"></path>
-		</symbol>
-	</defs>
-</svg>
-
-<div class="view view-grid animate-frames">
-	<div class="gridHeader">
-		Drawings by Graham	
-	</div>
-
-	<div class="unit">
-		<div class="frame">
-			<img src="images/batman1.jpg" alt="he has no body">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/batman2.jpg" alt="something is different">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/batman3.jpg" alt="why is there no vampire batman?">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/tess.jpg" alt="sweet">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/ocean.jpg" alt="out there on the waves">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/spacejungle.jpg" alt="explorin' space">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/birdwatcher.jpg" alt="i don't see any">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/beatdown.jpg" alt="rhythm and pain">
-		</div>
-	</div>
-	<div class="unit">
-		<div class="frame">
-			<img src="images/alien.jpg" alt="looks fine to me">
-		</div>
-	</div>
-</div>
-
-<div class="details">
-	<div class="detail detail-header detail-show">
-		<span class="detail_title">Image Title</span>
-		<svg class="icon icon-clear action-header">
-	  		<use xlink:href="#icon-clear"></use>
-		</svg>
-		<div class="detail_close"></div>
-	</div>
-
-	<div class="detail detail-footer detail-show">
-		<svg class="icon icon-plus1 action-footer">
-	  		<use xlink:href="#icon-plus1"></use>
-		</svg>
-		<svg class="icon icon-chat action-footer">
-	  		<use xlink:href="#icon-chat"></use>
-		</svg>
-		<svg class="icon icon-add action-footer">
-	  		<use xlink:href="#icon-add"></use>
-		</svg>
-		<svg class="icon icon-forward action-footer">
-			<use xlink:href="#icon-forward"></use>
-		</svg>
-	</div>
-</div>
-
-<script src="lib/hammer.min.js"></script>
-<script src="g.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawings by Graham</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="g.css">
+</head>
+<body>
+    <svg class="svgDefs">
+        <defs>
+            <symbol id="icon-add" viewBox="0 0 32 32">
+                <path class="path1" d="M25.333 17.333h-8v8h-2.667v-8h-8v-2.667h8v-8h2.667v8h8v2.667z"></path>
+            </symbol>
+            <symbol id="icon-chat" viewBox="0 0 32 32">
+                <path class="path1" d="M26.667 2.667h-21.333c-1.467 0-2.653 1.2-2.653 2.667l-0.013 24 5.333-5.333h18.667c1.467 0 2.667-1.2 2.667-2.667v-16c0-1.467-1.2-2.667-2.667-2.667zM8 12h16v2.667h-16v-2.667zM18.667 18.667h-10.667v-2.667h10.667v2.667zM24 10.667h-16v-2.667h16v2.667z"></path>
+            </symbol>
+            <symbol id="icon-forward" viewBox="0 0 32 32">
+                <path class="path1" d="M18.667 12v-5.333l9.333 9.333-9.333 9.333v-5.467c-6.667 0-11.333 2.133-14.667 6.8 1.333-6.667 5.333-13.333 14.667-14.667z"></path>
+            </symbol>
+            <symbol id="icon-plus1" viewBox="0 0 32 32">
+                <path class="path1" d="M13.333 10.667h-2.667v5.333h-5.333v2.667h5.333v5.333h2.667v-5.333h5.333v-2.667h-5.333zM19.333 8.107v2.427l3.333-0.667v14.133h2.667v-17.333z"></path>
+            </symbol>
+            <symbol id="icon-clear" viewBox="0 0 32 32">
+                <path class="path1" d="M25.333 8.547l-1.88-1.88-7.453 7.453-7.453-7.453-1.88 1.88 7.453 7.453-7.453 7.453 1.88 1.88 7.453-7.453 7.453 7.453 1.88-1.88-7.453-7.453z"></path>
+            </symbol>
+        </defs>
+    </svg>
+    <!-- TODO: Rather than assuming a server side render, allow populating the view from JS. -->
+    <div class="view view-animateFrames grid">
+        <div class="grid_header">
+            Drawings by Graham
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/batman1.jpg" alt="he has no body">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/batman2.jpg" alt="something is different">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/batman3.jpg" alt="why is there no vampire batman?">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/tess.jpg" alt="sweet">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/ocean.jpg" alt="out there on the waves">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/spacejungle.jpg" alt="explorin' space">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/birdwatcher.jpg" alt="i don't see any">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/beatdown.jpg" alt="rhythm and pain">
+            </div>
+        </div>
+        <div class="grid_unit">
+            <div class="frame">
+                <img class="frame_img" src="images/alien.jpg" alt="looks fine to me">
+            </div>
+        </div>
+    </div>
+    <div class="detail">
+        <div class="detail_block detail_header">
+            <span class="detail_title">Image Title</span>
+            <svg class="icon icon-clear detail_headerAction">
+                <use xlink:href="#icon-clear"></use>
+            </svg>
+            <div class="detail_closeGallery"></div>
+        </div>
+        <div class="detail_block detail_footer">
+            <svg class="icon icon-plus1 detail_footerAction">
+                <use xlink:href="#icon-plus1"></use>
+            </svg>
+            <svg class="icon icon-chat detail_footerAction">
+                <use xlink:href="#icon-chat"></use>
+            </svg>
+            <svg class="icon icon-add detail_footerAction">
+                <use xlink:href="#icon-add"></use>
+            </svg>
+            <svg class="icon icon-forward detail_footerAction">
+                <use xlink:href="#icon-forward"></use>
+            </svg>
+        </div>
+    </div>
+    <!-- TODO: Remove dependency on HammerJS for touch and gestures recognition. -->
+    <script src="lib/hammer.min.js"></script>
+    <script src="g.js"></script>
+</body>
+</html>
