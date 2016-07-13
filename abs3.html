@@ -6,6 +6,8 @@
     body {
         margin: 0;
         font-size: 1em;
+        font-family: roboto, helvetica neue, sans-serif;
+        background: #f8f8f8;
     }
     .grid {
         display: flex;
@@ -17,22 +19,41 @@
     .node {
         height: calc(50vw - 1.25rem);
         width: calc(50vw - 1.25rem);
+
+        border-radius: 2px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        overflow: hidden;
+
         margin-bottom: .5rem;
 
-        background: pink;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: #fff;
+    }
+    .absolute {
+        position: absolute;
     }
     .gallery,
     .gallery .node {
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
 
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
 
         margin: 0;
         padding: 0;
+
+        background: #fff;
+
+        overflow: hidden;
+        border-radius: 0;
+        box-shadow: none;
     }
     .animate .node {
         transition: .3s ease-in-out;
@@ -40,18 +61,218 @@
     .front {
         z-index: 1;
     }
+
+    .img {
+        max-width: 120%;
+        max-height: 120%;
+        transition: .3s ease-in-out;
+        opacity: 1;
+    }
+
+    .gallery .img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .img-loading {
+        opacity: 0;
+    }
+
+    .grid_header {
+        width: 100%;
+        padding-bottom: .5rem;
+        margin-bottom: 1rem;
+
+        border-bottom: dotted 1px rgba(0,0,0,.2);
+
+        font-size: .8rem;
+        text-align: center;
+        text-transform: uppercase;
+        color: rgba(0,0,0,.6);
+    }
+
+    .gallery .grid_header {
+        visibility: hidden;
+    }
+    .svgDefs {
+        display: none;
+    }
+
+    .icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+    }
+    .detail_block {
+        position: fixed;
+        z-index: 2;
+
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+
+        width: 100%;
+        padding: .5rem;
+
+        background: rgba(245,245,245,.9);
+
+        /* Sharp curve from https://material.google.com/motion/duration-easing.html */
+        /* Detail should appear to be within easy reach. */
+        -webkit-transition: .2s cubic-bezier(0.4, 0.0, 0.6, 1);
+        transition: .2s cubic-bezier(0.4, 0.0, 0.6, 1);
+    }
+
+    .detail-show .detail_block {
+        transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -webkit-transform: translate3d(0,0,0);
+
+        -webkit-transition: .2s cubic-bezier(0.4, 0.0, 0.6, 1);
+        transition: .2s cubic-bezier(0.4, 0.0, 0.6, 1);
+    }
+
+    .detail_header {
+        top: 0;
+
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+
+        border-bottom: solid 1px rgba(0,0,0,.1);
+        box-shadow: 0 2px 4px -2px rgba(0,0,0,.1);
+
+        transform: translate3d(0,-100%,0);
+        -moz-transform: translate3d(0,-100%,0);
+        -webkit-transform: translate3d(0,-100%,0);
+    }
+
+    /* Used to make it easier to tap cancel icon. */
+    .detail_closeGallery {
+        position: absolute;
+        content: '';
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        width: 20%;
+    }
+
+    .detail_footer {
+        bottom: 0;
+
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+
+        border-top: solid 1px rgba(0,0,0,.1);
+
+        transform: translate3d(0,100%,0);
+        -moz-transform: translate3d(0,100%,0);
+        -webkit-transform: translate3d(0,100%,0);
+    }
+
+    .detail_title {
+        font-weight: 300;
+    }
+
+    .detail_headerAction {
+        font-size: 1.5rem;
+    }
+
+    .detail_footerAction {
+        font-size: 1.75rem;
+    }
 </style>
 
+<svg class="svgDefs">
+    <defs>
+        <symbol id="icon-add" viewBox="0 0 32 32">
+            <path class="path1" d="M25.333 17.333h-8v8h-2.667v-8h-8v-2.667h8v-8h2.667v8h8v2.667z"></path>
+        </symbol>
+        <symbol id="icon-chat" viewBox="0 0 32 32">
+            <path class="path1" d="M26.667 2.667h-21.333c-1.467 0-2.653 1.2-2.653 2.667l-0.013 24 5.333-5.333h18.667c1.467 0 2.667-1.2 2.667-2.667v-16c0-1.467-1.2-2.667-2.667-2.667zM8 12h16v2.667h-16v-2.667zM18.667 18.667h-10.667v-2.667h10.667v2.667zM24 10.667h-16v-2.667h16v2.667z"></path>
+        </symbol>
+        <symbol id="icon-forward" viewBox="0 0 32 32">
+            <path class="path1" d="M18.667 12v-5.333l9.333 9.333-9.333 9.333v-5.467c-6.667 0-11.333 2.133-14.667 6.8 1.333-6.667 5.333-13.333 14.667-14.667z"></path>
+        </symbol>
+        <symbol id="icon-plus1" viewBox="0 0 32 32">
+            <path class="path1" d="M13.333 10.667h-2.667v5.333h-5.333v2.667h5.333v5.333h2.667v-5.333h5.333v-2.667h-5.333zM19.333 8.107v2.427l3.333-0.667v14.133h2.667v-17.333z"></path>
+        </symbol>
+        <symbol id="icon-clear" viewBox="0 0 32 32">
+            <path class="path1" d="M25.333 8.547l-1.88-1.88-7.453 7.453-7.453-7.453-1.88 1.88 7.453 7.453-7.453 7.453 1.88 1.88 7.453-7.453 7.453 7.453 1.88-1.88-7.453-7.453z"></path>
+        </symbol>
+    </defs>
+</svg>
+
+<script>
+    var revealImage = function (img) {
+        img.classList.remove('img-loading');
+    }
+</script>
+
 <div class="view grid animate">
-    <div class="node">0</div>
-    <div class="node">1</div>
-    <div class="node">2</div>
-    <div class="node">3</div>
-    <div class="node">4</div>
-    <div class="node">5</div>
-    <div class="node">6</div>
-    <div class="node">7</div>
-    <div class="node">8</div>
+    <div class="grid_header">
+        Drawings by Graham
+    </div>
+    <div class="node">
+        <img src="images/batman1.jpg" class="img img-loading" onload="revealImage(this)" alt="he has no body">
+    </div>
+    <div class="node">
+        <img src="images/batman2.jpg" class="img img-loading" onload="revealImage(this)" alt="something is different">
+    </div>
+    <div class="node">
+        <img src="images/batman3.jpg" class="img img-loading" onload="revealImage(this)" alt="why is there no vampire batman?">
+    </div>
+    <div class="node">
+        <img src="images/tess.jpg" class="img img-loading" onload="revealImage(this)" alt="sweet">
+    </div>
+    <div class="node">
+        <img src="images/ocean.jpg" class="img img-loading" onload="revealImage(this)" alt="out there on the waves">
+    </div>
+    <div class="node">
+        <img src="images/spacejungle.jpg" class="img img-loading" onload="revealImage(this)" alt="explorin' space">
+    </div>
+    <div class="node">
+        <img src="images/birdwatcher.jpg" class="img img-loading" onload="revealImage(this)" alt="i don't see any">
+    </div>
+    <div class="node">
+        <img src="images/beatdown.jpg" class="img img-loading" onload="revealImage(this)" alt="rhythm and pain">
+    </div>
+    <div class="node">
+        <img src="images/alien.jpg" class="img img-loading" onload="revealImage(this)" alt="nice guy">
+    </div>
+</div>
+
+<div class="detail">
+    <div class="detail_block detail_header">
+        <span class="detail_title">Image Title</span>
+        <svg class="icon icon-clear detail_headerAction">
+            <use xlink:href="#icon-clear"></use>
+        </svg>
+        <div class="detail_closeGallery"></div>
+    </div>
+    <div class="detail_block detail_footer">
+        <svg class="icon icon-plus1 detail_footerAction">
+            <use xlink:href="#icon-plus1"></use>
+        </svg>
+        <svg class="icon icon-chat detail_footerAction">
+            <use xlink:href="#icon-chat"></use>
+        </svg>
+        <svg class="icon icon-add detail_footerAction">
+            <use xlink:href="#icon-add"></use>
+        </svg>
+        <svg class="icon icon-forward detail_footerAction">
+            <use xlink:href="#icon-forward"></use>
+        </svg>
+    </div>
 </div>
 
 <script src="lib/hammer.min.js"></script>
@@ -60,6 +281,10 @@
 
     var view = document.querySelector('.view');
     var nodes = document.querySelectorAll('.node');
+    var detail = document.querySelector('.detail');
+    var detailTitle = document.querySelector('.detail_title');
+
+    var imageTitles = [];
 
     var PAN_LIMIT = 20;
     var PAN_WIDTH = document.body.clientWidth + 100;
@@ -69,8 +294,9 @@
     var positionNode = function (node) {
         node.style.top = node.nTop = node.offsetTop;
         node.style.left = node.nLeft = node.offsetLeft;
+        console.log(node.style.top)
         setTimeout(function() {
-            node.style.position = 'absolute';  
+            node.classList.add('absolute');
         }, 300);
     }
 
@@ -79,21 +305,30 @@
         nodeHammer.add( new Hammer.Tap() );
         nodeHammer.on('tap', function(){
             if (view.classList.contains('gallery')) {
-                toggleDetails();
+                toggleDetail();
             } else {
                 openGallery(index);
             }
         });
     }
 
-    var toggleDetails = function () {
-        // for now close
-        closeGallery();
+    var initHeader = function () {
+        var closeGalleryElem = document.querySelector('.detail_closeGallery');
+        var closeGalleryHammer = new Hammer.Manager(closeGalleryElem);
+        closeGalleryHammer.add(new Hammer.Tap());
+        closeGalleryHammer.on('tap', closeGallery);
+    }
+
+    var toggleDetail = function () {
+        if (detail.classList.contains('detail-show')) {
+            detail.classList.remove('detail-show');
+        } else {
+            detail.classList.add('detail-show');
+        }
     }
 
     var openGallery = function (index) {
         view.classList.add('gallery');
-
         nodes[index].classList.add('front');
 
         for (var i = 0; i < nodes.length; i++) {
@@ -102,11 +337,14 @@
         }
 
         show(index, 0, true);
+        toggleDetail();
     }
 
     var closeGallery = function () {
         view.classList.add('animate');
         view.classList.remove('gallery');
+
+        detail.classList.remove('detail-show');
 
         var translate = 'none';
         for (var i = 0; i < nodes.length; i++) {
@@ -120,7 +358,7 @@
         setTimeout(function(){
             nodes[currentIndex].scrollIntoViewIfNeeded();
             nodes[currentIndex].classList.remove('front');
-        }, 200)
+        }, 300)
     }
 
     var show = function (showIndex, percent, animate) {
@@ -129,7 +367,7 @@
 
         if (animate) {
             view.classList.add('animate');
-            // detailTitle.textContent = imageTitles[showIndex];
+            detailTitle.textContent = imageTitles[showIndex];
         } else {
             view.classList.remove('animate');
         }
@@ -144,7 +382,7 @@
             translate = 'translate3d(' + pos + 'px, 0, 0)';
 
             if (i !== showIndex) {
-                translate += ' scale(.8)'
+                translate += ' scale(.6)'
             }
 
             nodes[i].style.transform = translate;
@@ -177,13 +415,18 @@
     // run through nodes
     // make nodes absolute
     // create tap manager
+    // grab image titles
     for (var i = 0; i < nodes.length; i++) {
         var node = nodes[i];
         positionNode(node);
         createTapManager(node, i);
+        imageTitles.push(node.children[0].getAttribute('alt'));
     }
 
+    // attach initial listeners
     viewHammerManager = new Hammer.Manager(view);
     viewHammerManager.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 }));
     viewHammerManager.on('panstart panmove panend pancancel', pan);
+
+    initHeader();
 </script>
