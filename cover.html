@@ -1,0 +1,160 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        background: #eee;
+    }
+    .grid {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+    .node {
+        float: left;
+        width: calc(50vw - 1.25rem);
+        height: calc(50vw - 1.25rem);
+        margin-bottom: .5rem;
+        overflow: hidden;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: .3s ease-in-out;
+    }
+    img {
+        height: auto;
+        width: auto;
+        transition: .2s ease-in-out;
+    }
+    .max {
+        max-height: 100vh;
+        max-width: 100vw;
+    }
+    .hidden {
+        opacity: 0;
+    }
+    .noScroll {
+        height: 0;
+        overflow: hidden;
+    }
+    .fs {
+        width: 100vw;
+        height: 100vh;
+    }
+    .node.fs {
+        background: #fff;
+        margin-bottom: 0;
+    }
+    .front {
+        z-index: 1;
+    }
+</style>
+
+<script>
+    function fitNode(img) {
+        if (img.naturalHeight > img.naturalWidth) {
+            img.style['max-width'] = "100%";
+        } else {
+            img.style['max-height'] = "100%";
+        }
+        img.classList.remove('hidden');
+    }
+</script>
+
+<div class="grid">
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/spacejungle.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/tess.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman3.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/spacejungle.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/tess.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman3.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/spacejungle.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/tess.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman3.jpg" class="hidden" onload="fitNode(this)">
+    </div>
+</div>
+
+<script>
+    var grid = document.querySelector('.grid');
+    var nodes = document.querySelectorAll('.node');
+
+    var collectPositions = function () {
+        // loop through nodes
+        // for each node record the left and top distance
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].nTop = nodes[i].offsetTop;
+            nodes[i].nLeft = nodes[i].offsetLeft;
+            makePositionAbsolute(nodes[i]);
+        }
+    }
+
+    var makePositionAbsolute = function (node) {
+        // given a node
+        // set top to ntop and left to nleft
+        // then set to absolute
+        node.style.top = node.offsetTop;
+        node.style.left = node.offsetLeft;
+        setTimeout(function(){
+            node.style.position = 'absolute';  
+        }, 100);
+    }
+
+    var selectNode = function (node) {
+        document.body.classList.add('noScroll');
+        node.style.top = window.scrollY;
+        node.style.left = 0;
+        node.classList.add('fs', 'front');
+        node.children[0].classList.add('max');
+    }
+
+    var unselectNode = function (node) {
+        document.body.classList.remove('noScroll');
+        node.style.top = node.nTop;
+        node.style.left = node.nLeft;
+        node.classList.remove('fs');
+        setTimeout(function(){
+            node.classList.remove('front');
+            node.children[0].classList.remove('max');
+        }, 400);
+    }
+
+    var toggleSelect = function (node) {
+        if (node.classList.contains('fs')) {
+            unselectNode(node);
+        } else {
+            selectNode(node);
+        }
+    }
+
+    collectPositions();
+</script>

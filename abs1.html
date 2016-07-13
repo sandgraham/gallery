@@ -1,0 +1,122 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+    body {
+        margin: 0;
+    }
+    .grid {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+    .node {
+        width: calc(50vw - 1.25rem);
+        height: calc(50vw - 1.25rem);
+        /*background: pink;*/
+        margin-bottom: .5rem;
+        transition: .4s ease-out;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .fs {
+        width: 100vw;
+        height: 100vh;
+    }
+    .noScroll {
+        overflow: hidden;
+    }
+    img {
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    .front {
+        z-index: 1;
+    }
+</style>
+
+<div class="grid">
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman1.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman2.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/batman3.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/alien.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/tess.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/ocean.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/birdwatcher.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/beatdown.jpg">
+    </div>
+    <div class="node" onclick="toggleSelect(this)">
+        <img src="images/spacejungle.jpg">
+    </div>
+</div>
+
+<script>
+    var grid = document.querySelector('.grid');
+    var nodes = document.querySelectorAll('.node');
+
+    var collectPositions = function () {
+        // loop through nodes
+        // for each node record the left and top distance
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].nTop = nodes[i].offsetTop;
+            nodes[i].nLeft = nodes[i].offsetLeft;
+            makePositionAbsolute(nodes[i]);
+        }
+    }
+
+    var makePositionAbsolute = function (node) {
+        // given a node
+        // set top to ntop and left to nleft
+        // then set to absolute
+        node.style.top = node.offsetTop;
+        node.style.left = node.offsetLeft;
+        setTimeout(function(){
+            node.style.position = 'absolute';  
+        }, 100);
+    }
+
+    var selectNode = function (node) {
+        document.body.classList.add('noScroll');
+        node.style.top = window.scrollY;
+        node.style.left = 0;
+        node.classList.add('fs', 'front');
+    }
+
+    var unselectNode = function (node) {
+        document.body.classList.remove('noScroll');
+        node.style.top = node.nTop;
+        node.style.left = node.nLeft;
+        node.classList.remove('fs');
+        setTimeout(function(){
+            node.classList.remove('front');
+        }, 400);
+    }
+
+    var toggleSelect = function (node) {
+        if (node.classList.contains('fs')) {
+            unselectNode(node);
+        } else {
+            selectNode(node);
+        }
+    }
+
+    collectPositions();
+</script>
