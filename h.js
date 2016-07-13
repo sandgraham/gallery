@@ -29,6 +29,8 @@
         var closeGalleryHammer = new Hammer.Manager(document.querySelector('.detail_closeGallery'));
         closeGalleryHammer.add(new Hammer.Tap());
         closeGalleryHammer.on('tap', closeGallery);
+
+        view.classList.add('fs');
     }
 
     var positionNode = function (node) {
@@ -87,10 +89,19 @@
             nodes[i].style.webkitTransform = translate;
         }
 
-        setTimeout(function(){
+        var scroll = requestAnimationFrame(function scrolling (){
             nodes[currentIndex].scrollIntoViewIfNeeded();
+            scroll = requestAnimationFrame(scrolling);
+        });
+
+        setTimeout(function(){
+            cancelAnimationFrame(scroll);
             nodes[currentIndex].classList.remove('front');
-        }, 300)
+        }, 600);
+    }
+
+    var moveToNode = function (node) {
+        requestAnimationFrame( moveToNode );
     }
 
     var show = function (showIndex, percent, animate) {
